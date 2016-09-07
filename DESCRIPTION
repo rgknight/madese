@@ -6,7 +6,7 @@ Description: Get State Reports from the Massachusetts Department of Elementary &
 Depends:
     R (>= 3.3.1)
 Imports:
-    rvest
+    rvest,
     httr
 License: MIT
 Encoding: UTF-8

@@ -15,7 +15,7 @@ dese_selectedpopulations(year, mode = "school")
 data.frame
 }
 \description{
-Get the \href{http://profiles.doe.mass.edu/state_report/selectedpopulations.aspx}{Enrollemnt by Selected Populations} Report from Massachusetts DESE 
+Get the \href{http://profiles.doe.mass.edu/state_report/selectedpopulations.aspx}{Enrollemnt by Selected Populations} Report from Massachusetts DESE
 (first language not english, english language learners, students with disabilities, etc)
 }
 \examples{

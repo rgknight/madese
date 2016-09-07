@@ -18,8 +18,11 @@ data.frame
 Get public school information from Massachusetts \href{http://profiles.doe.mass.edu/state_report/}{State Reports}.
 }
 \details{
-A wrapper function that execute a GET to http://profiles.doe.mass.edu/state_report/ 
+A wrapper function that execute a GET to http://profiles.doe.mass.edu/state_report/
 and parses the results.
+}
+\examples{
+dese_get('enrollmentbyracegender', query=list('mode'='school', 'year'='2016'))
 }
 \seealso{
 \code{\link{GET}} and \code{\link{rvest}} which this function wraps
