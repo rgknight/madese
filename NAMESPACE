@@ -2,7 +2,10 @@
 
 export(dese_attrition)
 export(dese_enrollmentbyracegender)
+export(dese_mobilityrates)
 export(dese_selectedpopulations)
+export(dese_ssdr)
+export(dese_ssdr_days_missed)
 import(httr)
 import(rvest)
 importFrom(magrittr,extract2)
