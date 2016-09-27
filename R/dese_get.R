@@ -10,6 +10,7 @@
 #' @return data.frame
 #' @import httr
 #' @import rvest
+#' @export
 #' @seealso \code{\link{GET}} and \code{\link{rvest}} which this function wraps
 #' @examples
 #' dese_get('enrollmentbyracegender', query=list('mode'='school', 'year'='2016'))
@@ -94,7 +95,7 @@ dese_selectedpopulations <- function(year, mode='school'){
 
   data <- dese_get('selectedpopulations', query)
 
-  data <- read_html(parsed) %>%
+  data <- read_html(data) %>%
     html_node('table') %>%
     html_table(header = T, fill=T)
 
@@ -118,6 +119,7 @@ dese_selectedpopulations <- function(year, mode='school'){
 #' @param group get the report for a specific student group. Defaults to all students.
 #' @seealso \code{\link{dese_get}} which this function wraps
 #' @import rvest
+#' @import dplyr
 #' @importFrom magrittr extract2
 #' @importFrom xml2 read_html
 #' @export
