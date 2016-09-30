@@ -11,8 +11,6 @@
 #' @importFrom magrittr extract2
 #' @importFrom xml2 read_html
 #' @export
-#' @examples
-#' dese_enrollmentbyracegender("2016")
 
 dese_parcc <- function(year="All", mode='All', group='All', schooltype='All', testtype='All'){
 
@@ -43,11 +41,11 @@ dese_parcc <- function(year="All", mode='All', group='All', schooltype='All', te
 
   allschooltypes <- list(
     "All",
-    "Elementary%20School",
-    "Elementary-Middle%20School",
-    "Middle%20School",
-    "Middle-High%20School%20or%20K-12",
-    "High%20School"
+    "Elementary School",
+    "Elementary-Middle School",
+    "Middle School",
+    "Middle-High School or K-12",
+    "High School"
   )
 
   alltesttypes <-list(
@@ -73,11 +71,12 @@ dese_parcc <- function(year="All", mode='All', group='All', schooltype='All', te
   if (year == "All"){year = allyears}
   if (mode == "All"){mode = allmodes}
   if (group == "All"){group = allgroups}
-  if (schooltype == "All"){schooltype = allschooltypes}
   if (testtype == "All"){testtype = alltesttypes}
+  # Note that using all school types would result in lots of duplicate data, so we don't do it
 
   # Expand options into a df with all option combinations to make the loops easier
   params <- expand.grid(year, mode, group, schooltype, testtype, stringsAsFactors = F)
+  params <- unique(params)
   names(params) <- c("year", "mode", "group", "schooltype", "testtype")
 
   alldat <- vector("list", nrow(params))
@@ -87,9 +86,10 @@ dese_parcc <- function(year="All", mode='All', group='All', schooltype='All', te
     yr <- as.character(params[i, "year"])
     md <- toupper(params[i, "mode"])
     gp <- toupper(params[i, "group"])
-    st <- toupper(params[i, "schooltype"])
+    st <- unlist(params[i, "schooltype"])
     tt <- as.character(params[i, "testtype"])
 
+    # Create a name for the query to print on error and name the list of results
     rnames <- make.names(do.call(paste, c(params[i, ], sep="_")))
 
     query <- list(
