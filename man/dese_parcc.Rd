@@ -21,7 +21,4 @@ dese_parcc(year = "All", mode = "All", group = "All",
 \description{
 Get the PARCC Report from Massachusetts DESE
 }
-\examples{
-dese_enrollmentbyracegender("2016")
-}
 
