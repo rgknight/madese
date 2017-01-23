@@ -29,6 +29,8 @@ dese_get <- function(report, query=NULL){
 
   parsed <- content(resp, as="text")
 
+  parsed <- gsub(" ", "", parsed) # Remove non-standard character
+
   if (grepl("404 - Page Not Found", parsed)) {
     stop(
       sprintf(
@@ -41,6 +43,47 @@ dese_get <- function(report, query=NULL){
   }
 
   parsed
+}
+
+#' Attendance and Retention Report
+#'
+#' Get the \href{http://profiles.doe.mass.edu/state_report/indicators.aspx}{Attendance and Retention} Report from Massachusetts DESE
+#'
+#' @param year a character string with the year (e.g., school year 2015-2016 is "2016")
+#' @param mode district or school
+#' @return data.frame
+#' @seealso \code{\link{dese_get}} which this function wraps
+#' @import rvest
+#' @export
+#' @examples
+#' dese_attendance("2016")
+dese_attendance <- function(year, mode='school'){
+  query <- list(
+    'mode'=mode,
+    'year'=as.character(year),
+    'export_excel'='yes'
+  )
+
+  parsed <- dese_get('indicators', query)
+
+  df <- read_html(parsed) %>%
+    html_node('table') %>%
+    html_table(header = T, fill=T)
+
+  # Data has extra columns & two header lines,
+  # with actual header a combination of the lines
+  last_col <- ncol(df) - 4
+
+  extra_names <- df[1, 1:last_col]
+  df <- df[-1, 1:last_col]
+
+  names(df) <- paste(names(df), extra_names, sep="_")
+
+  # Fix school and org code
+  names(df)[1] <- "school"
+  names(df)[2] <- "org_code"
+
+  df
 }
 
 #' Enrollment by Race and Gender

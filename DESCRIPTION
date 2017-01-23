@@ -1,6 +1,6 @@
 Package: madese
 Title: Get Education Data from Massachusetts DESE Website
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: person("Ryan", "Knight", email = "ryangknight@gmail.com", role = c("aut", "cre"))
 Description: Get State Reports from the Massachusetts Department of Elementary & Secondary Education website (http://profiles.doe.mass.edu/state_report/)
 Depends:
