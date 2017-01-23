@@ -70,14 +70,18 @@ dese_attendance <- function(year, mode='school'){
     html_node('table') %>%
     html_table(header = T, fill=T)
 
-  # Data has extra columns & two header lines,
-  # with actual header a combination of the lines
-  last_col <- ncol(df) - 4
+  # Data has extra columns in some years
+  df <- df[colSums(!is.na(df)) > 0]
 
-  extra_names <- df[1, 1:last_col]
-  df <- df[-1, 1:last_col]
+  # Data has two header lines,
+  # with actual header a combination of the lines
+  extra_names <- df[1, ]
+  df <- df[-1, ]
 
   names(df) <- paste(names(df), extra_names, sep="_")
+
+  # Take out extra dots in names
+  names(df) <- gsub("\\.[1-4]", "", names(df))
 
   # Fix school and org code
   names(df)[1] <- "school"
